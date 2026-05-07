@@ -12,7 +12,7 @@ router = APIRouter()
 @router.get("/sessions/{session_id}/export")
 def export_session(
     session_id: str,
-    format: str = Query(default="json", regex="^(json|pdf)$"),
+    format: str = Query(default="json", pattern="^(json|pdf)$"),
 ):
     """Export a session as JSON or PDF."""
     session = get_session(session_id)

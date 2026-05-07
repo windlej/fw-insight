@@ -37,7 +37,7 @@ fw-insight = "cli.main:cli"
 include = ["core*", "parsers*", "api*", "cli*", "report*"]
 
 [tool.pytest.ini_options]
-testpaths = ["core", "parsers"]
+testpaths = ["core", "parsers", "api"]
 
 [tool.ruff]
 line-length = 100

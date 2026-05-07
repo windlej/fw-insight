@@ -54,7 +54,7 @@ def init_db():
                 description TEXT NOT NULL,
                 entity_id TEXT NOT NULL,
                 entity_type TEXT NOT NULL,
-                references TEXT DEFAULT '[]',
+                "references" TEXT DEFAULT '[]',
                 related_entity_ids TEXT DEFAULT '[]'
             )
         """))
@@ -171,7 +171,7 @@ def save_session(session_data: dict, findings: list[dict], raw_content: bytes | 
                 text("""
                     INSERT INTO findings (
                         id, session_id, check_id, severity, category, title,
-                        description, entity_id, entity_type, references, related_entity_ids
+                        description, entity_id, entity_type, "references", related_entity_ids
                     ) VALUES (
                         :id, :session_id, :check_id, :severity, :category, :title,
                         :description, :entity_id, :entity_type, :references, :related_entity_ids

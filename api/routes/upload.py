@@ -54,11 +54,11 @@ async def upload_session(
 
     result = engine.analyze(session_obj)
 
-    session_dict = session_obj.model_dump()
+    session_dict = session_obj.model_dump(mode="json")
     session_dict["health_score"] = result.health_score
     session_dict["finding_counts"] = result.finding_counts
 
-    findings = [f.model_dump() for f in result.findings]
+    findings = [f.model_dump(mode="json") for f in result.findings]
 
     session_id = save_session(session_dict, findings, raw_content, filename)
 

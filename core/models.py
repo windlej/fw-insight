@@ -162,10 +162,10 @@ class Session(PermissiveModel):
 class Finding(PermissiveModel):
     """A single analysis finding."""
 
-    check_id: str
+    check_id: str = ""
     severity: Severity = Severity.INFO
     category: Category = Category.SECURITY
-    title: str
+    title: str = ""
     description: str
     entity_id: str
     entity_type: str
