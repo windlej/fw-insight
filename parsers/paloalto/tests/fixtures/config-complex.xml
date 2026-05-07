@@ -1,0 +1,623 @@
+<?xml version="1.0"?>
+<config version="11.0.1" urldb="paloaltonetworks">
+  <devices>
+    <entry name="localhost.localdomain">
+      <deviceconfig>
+        <system>
+          <hostname>pa-fw-enterprise</hostname>
+        </system>
+      </deviceconfig>
+      <vsys>
+        <entry name="vsys1">
+          <address>
+            <entry name="HQ-All">
+              <ip-netmask>10.0.0.0/8</ip-netmask>
+              <description>Entire HQ address space</description>
+            </entry>
+            <entry name="HQ-Building-A">
+              <ip-netmask>10.1.0.0/16</ip-netmask>
+            </entry>
+            <entry name="HQ-Building-B">
+              <ip-netmask>10.2.0.0/16</ip-netmask>
+            </entry>
+            <entry name="HQ-Building-C">
+              <ip-netmask>10.3.0.0/16</ip-netmask>
+            </entry>
+            <entry name="Branch-Office-1">
+              <ip-netmask>172.16.1.0/24</ip-netmask>
+            </entry>
+            <entry name="Branch-Office-2">
+              <ip-netmask>172.16.2.0/24</ip-netmask>
+            </entry>
+            <entry name="DataCenter">
+              <ip-netmask>10.100.0.0/16</ip-netmask>
+            </entry>
+            <entry name="DC-Web-Tier">
+              <ip-netmask>10.100.10.0/24</ip-netmask>
+            </entry>
+            <entry name="DC-App-Tier">
+              <ip-netmask>10.100.20.0/24</ip-netmask>
+            </entry>
+            <entry name="DC-DB-Tier">
+              <ip-netmask>10.100.30.0/24</ip-netmask>
+            </entry>
+            <entry name="DC-Primary-Web">
+              <ip-netmask>10.100.10.10/32</ip-netmask>
+            </entry>
+            <entry name="DC-Secondary-Web">
+              <ip-netmask>10.100.10.11/32</ip-netmask>
+            </entry>
+            <entry name="DC-Primary-DB">
+              <ip-netmask>10.100.30.10/32</ip-netmask>
+            </entry>
+            <entry name="IoT-Network">
+              <ip-netmask>10.200.0.0/16</ip-netmask>
+            </entry>
+            <entry name="Camera-Network">
+              <ip-netmask>10.200.1.0/24</ip-netmask>
+            </entry>
+            <entry name="Printer-Network">
+              <ip-netmask>10.200.2.0/24</ip-netmask>
+            </entry>
+            <entry name="Partner-Network">
+              <ip-netmask>192.168.100.0/24</ip-netmask>
+            </entry>
+            <entry name="External-CDN">
+              <ip-netmask>151.101.0.0/16</ip-netmask>
+            </entry>
+          </address>
+          <address-group>
+            <entry name="HQ-All-Buildings">
+              <static>
+                <member>HQ-Building-A</member>
+                <member>HQ-Building-B</member>
+                <member>HQ-Building-C</member>
+              </static>
+            </entry>
+            <entry name="DC-Web-Tier-All">
+              <static>
+                <member>DC-Primary-Web</member>
+                <member>DC-Secondary-Web</member>
+              </static>
+            </entry>
+            <entry name="DC-All-Tiers">
+              <static>
+                <member>DC-Web-Tier</member>
+                <member>DC-App-Tier</member>
+                <member>DC-DB-Tier</member>
+              </static>
+            </entry>
+            <entry name="All-Internal">
+              <static>
+                <member>HQ-All</member>
+                <member>Branch-Office-1</member>
+                <member>Branch-Office-2</member>
+                <member>DataCenter</member>
+                <member>IoT-Network</member>
+              </static>
+            </entry>
+            <entry name="Branch-All">
+              <static>
+                <member>Branch-Office-1</member>
+                <member>Branch-Office-2</member>
+              </static>
+            </entry>
+          </address-group>
+          <service>
+            <entry name="svc-http">
+              <protocol>
+                <tcp>
+                  <port>80</port>
+                </tcp>
+              </protocol>
+            </entry>
+            <entry name="svc-https">
+              <protocol>
+                <tcp>
+                  <port>443</port>
+                </tcp>
+              </protocol>
+            </entry>
+            <entry name="svc-ssh">
+              <protocol>
+                <tcp>
+                  <port>22</port>
+                </tcp>
+              </protocol>
+            </entry>
+            <entry name="svc-rdp">
+              <protocol>
+                <tcp>
+                  <port>3389</port>
+                </tcp>
+              </protocol>
+            </entry>
+            <entry name="svc-dns">
+              <protocol>
+                <udp>
+                  <port>53</port>
+                </udp>
+              </protocol>
+            </entry>
+            <entry name="svc-mysql">
+              <protocol>
+                <tcp>
+                  <port>3306</port>
+                </tcp>
+              </protocol>
+            </entry>
+            <entry name="svc-ldap">
+              <protocol>
+                <tcp>
+                  <port>389</port>
+                </tcp>
+              </protocol>
+            </entry>
+            <entry name="svc-ldaps">
+              <protocol>
+                <tcp>
+                  <port>636</port>
+                </tcp>
+              </protocol>
+            </entry>
+            <entry name="svc-syslog">
+              <protocol>
+                <udp>
+                  <port>514</port>
+                </udp>
+              </protocol>
+            </entry>
+            <entry name="svc-snmp">
+              <protocol>
+                <udp>
+                  <port>161</port>
+                </udp>
+              </protocol>
+            </entry>
+            <entry name="svc-icmp">
+              <protocol>
+                <tcp>
+                  <port>7</port>
+                </tcp>
+              </protocol>
+            </entry>
+          </service>
+          <service-group>
+            <entry name="sg-web">
+              <members>
+                <member>svc-http</member>
+                <member>svc-https</member>
+              </members>
+            </entry>
+            <entry name="sg-directory">
+              <members>
+                <member>svc-ldap</member>
+                <member>svc-ldaps</member>
+              </members>
+            </entry>
+            <entry name="sg-monitoring">
+              <members>
+                <member>svc-syslog</member>
+                <member>svc-snmp</member>
+              </members>
+            </entry>
+          </service-group>
+          <rulebase>
+            <security>
+              <rules>
+                <entry name="1-Allow-HQ-Internet">
+                  <from><member>trust</member></from>
+                  <to><member>untrust</member></to>
+                  <source><member>HQ-All-Buildings</member></source>
+                  <destination><member>any</member></destination>
+                  <service><member>sg-web</member></service>
+                  <action>allow</action>
+                  <log-start>no</log-start>
+                  <log-end>yes</log-end>
+                </entry>
+                <entry name="2-Allow-HQ-DNS">
+                  <from><member>trust</member></from>
+                  <to><member>untrust</member></to>
+                  <source><member>HQ-All-Buildings</member></source>
+                  <destination><member>any</member></destination>
+                  <service><member>svc-dns</member></service>
+                  <action>allow</action>
+                  <log-start>no</log-start>
+                  <log-end>yes</log-end>
+                </entry>
+                <entry name="3-Allow-Branch-Internet">
+                  <from><member>branch</member></from>
+                  <to><member>untrust</member></to>
+                  <source><member>Branch-All</member></source>
+                  <destination><member>any</member></destination>
+                  <service><member>sg-web</member></service>
+                  <action>allow</action>
+                  <log-start>no</log-start>
+                  <log-end>yes</log-end>
+                </entry>
+                <entry name="4-Allow-Web-Tier-Internet">
+                  <from><member>dmz</member></from>
+                  <to><member>untrust</member></to>
+                  <source><member>DC-Web-Tier</member></source>
+                  <destination><member>External-CDN</member></destination>
+                  <service><member>svc-https</member></service>
+                  <action>allow</action>
+                  <log-start>yes</log-start>
+                  <log-end>yes</log-end>
+                </entry>
+                <entry name="5-Allow-User-to-App">
+                  <from><member>trust</member></from>
+                  <to><member>dmz</member></to>
+                  <source><member>HQ-All-Buildings</member></source>
+                  <destination><member>DC-App-Tier</member></destination>
+                  <service><member>svc-https</member></service>
+                  <action>allow</action>
+                  <log-start>yes</log-start>
+                  <log-end>yes</log-end>
+                </entry>
+                <entry name="6-Allow-App-to-DB">
+                  <from><member>dmz</member></from>
+                  <to><member>dmz</member></to>
+                  <source><member>DC-App-Tier</member></source>
+                  <destination><member>DC-DB-Tier</member></destination>
+                  <service><member>svc-mysql</member></service>
+                  <action>allow</action>
+                  <log-start>yes</log-start>
+                  <log-end>yes</log-end>
+                </entry>
+                <entry name="7-Allow-Branch-to-DC">
+                  <from><member>branch</member></from>
+                  <to><member>dmz</member></to>
+                  <source><member>Branch-All</member></source>
+                  <destination><member>DC-All-Tiers</member></destination>
+                  <service><member>svc-https</member></service>
+                  <action>allow</action>
+                  <log-start>no</log-start>
+                  <log-end>yes</log-end>
+                </entry>
+                <entry name="8-Allow-Mgmt-SSH">
+                  <from><member>mgmt</member></from>
+                  <to><member>any</member></to>
+                  <source><member>10.0.250.0/24</member></source>
+                  <destination><member>HQ-All</member></destination>
+                  <service><member>svc-ssh</member></service>
+                  <action>allow</action>
+                  <log-start>yes</log-start>
+                  <log-end>yes</log-end>
+                </entry>
+                <entry name="9-Allow-Mgmt-Monitoring">
+                  <from><member>mgmt</member></from>
+                  <to><member>any</member></to>
+                  <source><member>10.0.250.0/24</member></source>
+                  <destination><member>All-Internal</member></destination>
+                  <service><member>sg-monitoring</member></service>
+                  <action>allow</action>
+                  <log-start>no</log-start>
+                  <log-end>no</log-end>
+                </entry>
+                <entry name="10-Allow-IoT-to-DC">
+                  <from><member>iot</member></from>
+                  <to><member>dmz</member></to>
+                  <source><member>IoT-Network</member></source>
+                  <destination><member>DC-App-Tier</member></destination>
+                  <service><member>svc-https</member></service>
+                  <action>allow</action>
+                  <log-start>yes</log-start>
+                  <log-end>yes</log-end>
+                </entry>
+                <entry name="11-Allow-Camera-to-Recorder">
+                  <from><member>iot</member></from>
+                  <to><member>iot</member></to>
+                  <source><member>Camera-Network</member></source>
+                  <destination><member>10.200.5.10/32</member></destination>
+                  <service><member>any</member></service>
+                  <action>allow</action>
+                  <log-start>no</log-start>
+                  <log-end>yes</log-end>
+                </entry>
+                <entry name="12-Allow-Partner-Access">
+                  <from><member>untrust</member></from>
+                  <to><member>dmz</member></to>
+                  <source><member>Partner-Network</member></source>
+                  <destination><member>DC-Web-Tier</member></destination>
+                  <service><member>svc-https</member></service>
+                  <action>allow</action>
+                  <log-start>yes</log-start>
+                  <log-end>yes</log-end>
+                </entry>
+                <entry name="13-Allow-Printer-Access">
+                  <from><member>trust</member></from>
+                  <to><member>iot</member></to>
+                  <source><member>HQ-All-Buildings</member></source>
+                  <destination><member>Printer-Network</member></destination>
+                  <service><member>any</member></service>
+                  <action>allow</action>
+                  <log-start>no</log-start>
+                  <log-end>yes</log-end>
+                </entry>
+                <entry name="14-Allow-Internal-DNS">
+                  <from><member>any</member></from>
+                  <to><member>dmz</member></to>
+                  <source><member>All-Internal</member></source>
+                  <destination><member>10.100.0.10/32</member></destination>
+                  <service><member>svc-dns</member></service>
+                  <action>allow</action>
+                  <log-start>no</log-start>
+                  <log-end>yes</log-end>
+                </entry>
+                <entry name="15-Allow-Internal-Directory">
+                  <from><member>trust</member></from>
+                  <to><member>dmz</member></to>
+                  <source><member>HQ-All-Buildings</member></source>
+                  <destination><member>10.100.0.20/32</member></destination>
+                  <service><member>sg-directory</member></service>
+                  <action>allow</action>
+                  <log-start>no</log-start>
+                  <log-end>yes</log-end>
+                </entry>
+                <entry name="16-Allow-Vendor-SSH">
+                  <from><member>untrust</member></from>
+                  <to><member>dmz</member></to>
+                  <source><member>any</member></source>
+                  <destination><member>10.100.10.50/32</member></destination>
+                  <service><member>svc-ssh</member></service>
+                  <action>allow</action>
+                  <log-start>yes</log-start>
+                  <log-end>yes</log-end>
+                  <description>Vendor support SSH access</description>
+                </entry>
+                <entry name="17-Allow-ICMP">
+                  <from><member>any</member></from>
+                  <to><member>any</member></to>
+                  <source><member>HQ-All</member></source>
+                  <destination><member>DC-All-Tiers</member></destination>
+                  <service><member>svc-icmp</member></service>
+                  <action>allow</action>
+                  <log-start>no</log-start>
+                  <log-end>yes</log-end>
+                </entry>
+                <entry name="18-Deny-IoT-to-Corp">
+                  <from><member>iot</member></from>
+                  <to><member>trust</member></to>
+                  <source><member>IoT-Network</member></source>
+                  <destination><member>HQ-All-Buildings</member></destination>
+                  <service><member>any</member></service>
+                  <action>deny</action>
+                  <log-start>no</log-start>
+                  <log-end>yes</log-end>
+                </entry>
+                <entry name="19-Deny-Guest-All">
+                  <from><member>guest</member></from>
+                  <to><member>any</member></to>
+                  <source><member>any</member></source>
+                  <destination><member>any</member></destination>
+                  <service><member>any</member></service>
+                  <action>deny</action>
+                  <log-start>no</log-start>
+                  <log-end>yes</log-end>
+                </entry>
+                <entry name="20-Deny-Partner-to-Corp">
+                  <from><member>untrust</member></from>
+                  <to><member>trust</member></to>
+                  <source><member>any</member></source>
+                  <destination><member>HQ-All-Buildings</member></destination>
+                  <service><member>any</member></service>
+                  <action>deny</action>
+                  <log-start>no</log-start>
+                  <log-end>yes</log-end>
+                </entry>
+                <entry name="21-Deny-DB-Outbound">
+                  <from><member>dmz</member></from>
+                  <to><member>untrust</member></to>
+                  <source><member>DC-DB-Tier</member></source>
+                  <destination><member>any</member></destination>
+                  <service><member>any</member></service>
+                  <action>deny</action>
+                  <log-start>no</log-start>
+                  <log-end>yes</log-end>
+                </entry>
+                <entry name="22-Shadowed-Web-Rule">
+                  <from><member>trust</member></from>
+                  <to><member>dmz</member></to>
+                  <source><member>HQ-All-Buildings</member></source>
+                  <destination><member>DC-Primary-Web</member></destination>
+                  <service><member>svc-https</member></service>
+                  <action>allow</action>
+                  <log-start>yes</log-start>
+                  <log-end>yes</log-end>
+                  <description>This is shadowed by rule 5</description>
+                </entry>
+                <entry name="23-Disabled-Legacy-Web">
+                  <from><member>trust</member></from>
+                  <to><member>dmz</member></to>
+                  <source><member>HQ-All</member></source>
+                  <destination><member>DC-Web-Tier</member></destination>
+                  <service><member>svc-https</member></service>
+                  <action>allow</action>
+                  <disabled>yes</disabled>
+                  <log-start>no</log-start>
+                  <log-end>yes</log-end>
+                  <description>Disabled legacy rule</description>
+                </entry>
+                <entry name="24-Disabled-Legacy-SSH">
+                  <from><member>mgmt</member></from>
+                  <to><member>any</member></to>
+                  <source><member>10.0.250.0/24</member></source>
+                  <destination><member>any</member></destination>
+                  <service><member>svc-ssh</member></service>
+                  <action>allow</action>
+                  <disabled>yes</disabled>
+                  <log-start>yes</log-start>
+                  <log-end>yes</log-end>
+                  <description>Disabled - replaced by rule 8</description>
+                </entry>
+                <entry name="25-Redundant-Branch-Internet">
+                  <from><member>branch</member></from>
+                  <to><member>untrust</member></to>
+                  <source><member>Branch-All</member></source>
+                  <destination><member>any</member></destination>
+                  <service><member>sg-web</member></service>
+                  <action>allow</action>
+                  <log-start>no</log-start>
+                  <log-end>yes</log-end>
+                  <description>Duplicate of rule 3</description>
+                </entry>
+                <entry name="26-Any-Any-Test">
+                  <from><member>any</member></from>
+                  <to><member>any</member></to>
+                  <source><member>any</member></source>
+                  <destination><member>any</member></destination>
+                  <service><member>any</member></service>
+                  <action>allow</action>
+                  <log-start>no</log-start>
+                  <log-end>no</log-end>
+                  <description>Test rule - should be flagged</description>
+                  <tag><member>test</member></tag>
+                </entry>
+                <entry name="27-Deny-All">
+                  <from><member>any</member></from>
+                  <to><member>any</member></to>
+                  <source><member>any</member></source>
+                  <destination><member>any</member></destination>
+                  <service><member>any</member></service>
+                  <action>deny</action>
+                  <log-start>no</log-start>
+                  <log-end>yes</log-end>
+                </entry>
+              </rules>
+            </security>
+            <nat>
+              <rules>
+                <entry name="NAT-HQ-Outbound">
+                  <source><member>HQ-All-Buildings</member></source>
+                  <destination><member>any</member></destination>
+                  <service>any</service>
+                  <nat-type>ipv4</nat-type>
+                  <source-translation>
+                    <dynamic-ip-and-port>
+                      <translated-address><member>203.0.113.1</member></translated-address>
+                    </dynamic-ip-and-port>
+                  </source-translation>
+                </entry>
+                <entry name="NAT-Branch-Outbound">
+                  <source><member>Branch-All</member></source>
+                  <destination><member>any</member></destination>
+                  <service>any</service>
+                  <nat-type>ipv4</nat-type>
+                  <source-translation>
+                    <dynamic-ip-and-port>
+                      <translated-address><member>203.0.113.2</member></translated-address>
+                    </dynamic-ip-and-port>
+                  </source-translation>
+                </entry>
+                <entry name="NAT-Web-Inbound-HTTP">
+                  <source><member>any</member></source>
+                  <destination><member>203.0.113.10</member></destination>
+                  <service><member>svc-http</member></service>
+                  <nat-type>ipv4</nat-type>
+                  <destination-translation>
+                    <translated-address>10.100.10.10</translated-address>
+                    <translated-port>80</translated-port>
+                  </destination-translation>
+                </entry>
+                <entry name="NAT-Web-Inbound-HTTPS">
+                  <source><member>any</member></source>
+                  <destination><member>203.0.113.10</member></destination>
+                  <service><member>svc-https</member></service>
+                  <nat-type>ipv4</nat-type>
+                  <destination-translation>
+                    <translated-address>10.100.10.10</translated-address>
+                    <translated-port>443</translated-port>
+                  </destination-translation>
+                </entry>
+                <entry name="NAT-IoT-Outbound">
+                  <source><member>IoT-Network</member></source>
+                  <destination><member>any</member></destination>
+                  <service>any</service>
+                  <nat-type>ipv4</nat-type>
+                  <source-translation>
+                    <dynamic-ip-and-port>
+                      <translated-address><member>203.0.113.3</member></translated-address>
+                    </dynamic-ip-and-port>
+                  </source-translation>
+                </entry>
+              </rules>
+            </nat>
+          </rulebase>
+          <zone>
+            <entry name="trust">
+              <network>
+                <member>ethernet1/1</member>
+                <member>ethernet1/2</member>
+                <member>ethernet1/3</member>
+              </network>
+            </entry>
+            <entry name="untrust">
+              <network><member>ethernet1/0</member></network>
+            </entry>
+            <entry name="dmz">
+              <network><member>ethernet1/4</member></network>
+            </entry>
+            <entry name="branch">
+              <network><member>tunnel.1</member></network>
+            </entry>
+            <entry name="mgmt">
+              <network><member>ethernet1/5</member></network>
+            </entry>
+            <entry name="iot">
+              <network><member>ethernet1/6</member></network>
+            </entry>
+          </zone>
+        </entry>
+      </vsys>
+      <network>
+        <interface>
+          <ethernet>
+            <entry name="ethernet1/0">
+              <layer3>
+                <ip><entry name="203.0.113.1/24"/></ip>
+                <zone><member>untrust</member></zone>
+              </layer3>
+            </entry>
+            <entry name="ethernet1/1">
+              <layer3>
+                <ip><entry name="10.1.0.1/16"/></ip>
+                <zone><member>trust</member></zone>
+              </layer3>
+            </entry>
+            <entry name="ethernet1/2">
+              <layer3>
+                <ip><entry name="10.2.0.1/16"/></ip>
+                <zone><member>trust</member></zone>
+              </layer3>
+            </entry>
+            <entry name="ethernet1/3">
+              <layer3>
+                <ip><entry name="10.3.0.1/16"/></ip>
+                <zone><member>trust</member></zone>
+              </layer3>
+            </entry>
+            <entry name="ethernet1/4">
+              <layer3>
+                <ip><entry name="10.100.0.1/16"/></ip>
+                <zone><member>dmz</member></zone>
+              </layer3>
+            </entry>
+            <entry name="ethernet1/5">
+              <layer3>
+                <ip><entry name="10.0.250.1/24"/></ip>
+                <zone><member>mgmt</member></zone>
+              </layer3>
+            </entry>
+            <entry name="ethernet1/6">
+              <layer3>
+                <ip><entry name="10.200.0.1/16"/></ip>
+                <zone><member>iot</member></zone>
+              </layer3>
+            </entry>
+          </ethernet>
+        </interface>
+      </network>
+    </entry>
+  </devices>
+</config>

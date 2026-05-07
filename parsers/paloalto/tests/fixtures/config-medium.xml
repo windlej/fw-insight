@@ -1,0 +1,481 @@
+<?xml version="1.0"?>
+<config version="10.2.3" urldb="paloaltonetworks">
+  <devices>
+    <entry name="localhost.localdomain">
+      <deviceconfig>
+        <system>
+          <hostname>pa-fw-prod-01</hostname>
+        </system>
+      </deviceconfig>
+      <vsys>
+        <entry name="vsys1">
+          <address>
+            <entry name="Corporate-LAN">
+              <ip-netmask>10.10.0.0/16</ip-netmask>
+              <description>Corporate LAN - all subnets</description>
+            </entry>
+            <entry name="Server-Farm">
+              <ip-netmask>10.10.100.0/24</ip-netmask>
+              <description>Server farm network</description>
+            </entry>
+            <entry name="DB-Subnet">
+              <ip-netmask>10.10.100.10/32</ip-netmask>
+              <description>Primary database server</description>
+            </entry>
+            <entry name="Web-Servers">
+              <ip-netmask>10.10.100.20/32</ip-netmask>
+              <description>Primary web server</description>
+            </entry>
+            <entry name="Guest-WiFi">
+              <ip-netmask>10.10.200.0/24</ip-netmask>
+              <description>Guest wireless network</description>
+            </entry>
+            <entry name="Management">
+              <ip-netmask>10.10.250.0/24</ip-netmask>
+              <description>Management network</description>
+            </entry>
+          </address>
+          <address-group>
+            <entry name="All-Servers">
+              <static>
+                <member>Server-Farm</member>
+                <member>DB-Subnet</member>
+                <member>Web-Servers</member>
+              </static>
+              <description>All server addresses</description>
+            </entry>
+          </address-group>
+          <service>
+            <entry name="svc-http">
+              <protocol>
+                <tcp>
+                  <port>80</port>
+                </tcp>
+              </protocol>
+            </entry>
+            <entry name="svc-https">
+              <protocol>
+                <tcp>
+                  <port>443</port>
+                </tcp>
+              </protocol>
+            </entry>
+            <entry name="svc-ssh">
+              <protocol>
+                <tcp>
+                  <port>22</port>
+                </tcp>
+              </protocol>
+            </entry>
+            <entry name="svc-rdp">
+              <protocol>
+                <tcp>
+                  <port>3389</port>
+                </tcp>
+              </protocol>
+            </entry>
+            <entry name="svc-dns">
+              <protocol>
+                <udp>
+                  <port>53</port>
+                </udp>
+              </protocol>
+            </entry>
+            <entry name="svc-mysql">
+              <protocol>
+                <tcp>
+                  <port>3306</port>
+                </tcp>
+              </protocol>
+            </entry>
+          </service>
+          <service-group>
+            <entry name="sg-web">
+              <members>
+                <member>svc-http</member>
+                <member>svc-https</member>
+              </members>
+            </entry>
+          </service-group>
+          <rulebase>
+            <security>
+              <rules>
+                <entry name="Allow-Corp-Web">
+                  <from>
+                    <member>trust</member>
+                  </from>
+                  <to>
+                    <member>untrust</member>
+                  </to>
+                  <source>
+                    <member>Corporate-LAN</member>
+                  </source>
+                  <destination>
+                    <member>any</member>
+                  </destination>
+                  <service>
+                    <member>sg-web</member>
+                  </service>
+                  <action>allow</action>
+                  <log-start>no</log-start>
+                  <log-end>yes</log-end>
+                </entry>
+                <entry name="Allow-Corp-DNS">
+                  <from>
+                    <member>trust</member>
+                  </from>
+                  <to>
+                    <member>untrust</member>
+                  </to>
+                  <source>
+                    <member>Corporate-LAN</member>
+                  </source>
+                  <destination>
+                    <member>any</member>
+                  </destination>
+                  <service>
+                    <member>svc-dns</member>
+                  </service>
+                  <action>allow</action>
+                  <log-start>no</log-start>
+                  <log-end>yes</log-end>
+                </entry>
+                <entry name="Allow-Guest-Web">
+                  <from>
+                    <member>guest</member>
+                  </from>
+                  <to>
+                    <member>untrust</member>
+                  </to>
+                  <source>
+                    <member>Guest-WiFi</member>
+                  </source>
+                  <destination>
+                    <member>any</member>
+                  </destination>
+                  <service>
+                    <member>svc-https</member>
+                  </service>
+                  <action>allow</action>
+                  <log-start>no</log-start>
+                  <log-end>yes</log-end>
+                </entry>
+                <entry name="Allow-Mgmt-SSH">
+                  <from>
+                    <member>mgmt</member>
+                  </from>
+                  <to>
+                    <member>trust</member>
+                  </to>
+                  <source>
+                    <member>Management</member>
+                  </source>
+                  <destination>
+                    <member>Server-Farm</member>
+                  </destination>
+                  <service>
+                    <member>svc-ssh</member>
+                  </service>
+                  <action>allow</action>
+                  <log-start>yes</log-start>
+                  <log-end>yes</log-end>
+                  <description>Management SSH access to servers</description>
+                </entry>
+                <entry name="Allow-Web-to-DB">
+                  <from>
+                    <member>dmz</member>
+                  </from>
+                  <to>
+                    <member>dmz</member>
+                  </to>
+                  <source>
+                    <member>Web-Servers</member>
+                  </source>
+                  <destination>
+                    <member>DB-Subnet</member>
+                  </destination>
+                  <service>
+                    <member>svc-mysql</member>
+                  </service>
+                  <action>allow</action>
+                  <log-start>yes</log-start>
+                  <log-end>yes</log-end>
+                </entry>
+                <entry name="Allow-Any-Any-Legacy">
+                  <from>
+                    <member>any</member>
+                  </from>
+                  <to>
+                    <member>any</member>
+                  </to>
+                  <source>
+                    <member>any</member>
+                  </source>
+                  <destination>
+                    <member>any</member>
+                  </destination>
+                  <service>
+                    <member>any</member>
+                  </service>
+                  <action>allow</action>
+                  <log-start>no</log-start>
+                  <log-end>no</log-end>
+                  <description>Legacy rule - needs review</description>
+                  <tag>
+                    <member>legacy</member>
+                    <member>review-required</member>
+                  </tag>
+                </entry>
+                <entry name="Allow-Internet-RDP">
+                  <from>
+                    <member>untrust</member>
+                  </from>
+                  <to>
+                    <member>dmz</member>
+                  </to>
+                  <source>
+                    <member>any</member>
+                  </source>
+                  <destination>
+                    <member>Web-Servers</member>
+                  </destination>
+                  <service>
+                    <member>svc-rdp</member>
+                  </service>
+                  <action>allow</action>
+                  <log-start>no</log-start>
+                  <log-end>yes</log-end>
+                  <description>RDP access from internet to web server</description>
+                </entry>
+                <entry name="Deny-Guest-to-Internal">
+                  <from>
+                    <member>guest</member>
+                  </from>
+                  <to>
+                    <member>trust</member>
+                  </to>
+                  <source>
+                    <member>Guest-WiFi</member>
+                  </source>
+                  <destination>
+                    <member>Corporate-LAN</member>
+                  </destination>
+                  <service>
+                    <member>any</member>
+                  </service>
+                  <action>deny</action>
+                  <log-start>no</log-start>
+                  <log-end>yes</log-end>
+                </entry>
+                <entry name="Deny-Guest-to-Server">
+                  <from>
+                    <member>guest</member>
+                  </from>
+                  <to>
+                    <member>dmz</member>
+                  </to>
+                  <source>
+                    <member>Guest-WiFi</member>
+                  </source>
+                  <destination>
+                    <member>All-Servers</member>
+                  </destination>
+                  <service>
+                    <member>any</member>
+                  </service>
+                  <action>deny</action>
+                  <log-start>no</log-start>
+                  <log-end>yes</log-end>
+                </entry>
+                <entry name="Legacy-Redundant">
+                  <from>
+                    <member>trust</member>
+                  </from>
+                  <to>
+                    <member>untrust</member>
+                  </to>
+                  <source>
+                    <member>Corporate-LAN</member>
+                  </source>
+                  <destination>
+                    <member>any</member>
+                  </destination>
+                  <service>
+                    <member>sg-web</member>
+                  </service>
+                  <action>allow</action>
+                  <log-start>no</log-start>
+                  <log-end>yes</log-end>
+                  <description>Old web access rule - duplicate</description>
+                </entry>
+                <entry name="Disabled-Old-Rule">
+                  <from>
+                    <member>trust</member>
+                  </from>
+                  <to>
+                    <member>untrust</member>
+                  </to>
+                  <source>
+                    <member>Corporate-LAN</member>
+                  </source>
+                  <destination>
+                    <member>any</member>
+                  </destination>
+                  <service>
+                    <member>any</member>
+                  </service>
+                  <action>allow</action>
+                  <disabled>yes</disabled>
+                  <log-start>no</log-start>
+                  <log-end>yes</log-end>
+                  <description>Disabled - replaced by Allow-Corp-Web</description>
+                </entry>
+                <entry name="Deny-All">
+                  <from>
+                    <member>any</member>
+                  </from>
+                  <to>
+                    <member>any</member>
+                  </to>
+                  <source>
+                    <member>any</member>
+                  </source>
+                  <destination>
+                    <member>any</member>
+                  </destination>
+                  <service>
+                    <member>any</member>
+                  </service>
+                  <action>deny</action>
+                  <log-start>no</log-start>
+                  <log-end>yes</log-end>
+                </entry>
+              </rules>
+            </security>
+            <nat>
+              <rules>
+                <entry name="NAT-Outbound">
+                  <source>
+                    <member>Corporate-LAN</member>
+                    <member>Guest-WiFi</member>
+                  </source>
+                  <destination>
+                    <member>any</member>
+                  </destination>
+                  <service>any</service>
+                  <nat-type>ipv4</nat-type>
+                  <source-translation>
+                    <dynamic-ip-and-port>
+                      <translated-address>
+                        <member>198.51.100.1</member>
+                      </translated-address>
+                    </dynamic-ip-and-port>
+                  </source-translation>
+                </entry>
+                <entry name="NAT-Web-Server">
+                  <source>
+                    <member>any</member>
+                  </source>
+                  <destination>
+                    <member>198.51.100.1</member>
+                  </destination>
+                  <service>
+                    <member>svc-http</member>
+                  </service>
+                  <nat-type>ipv4</nat-type>
+                  <destination-translation>
+                    <translated-address>10.10.100.20</translated-address>
+                    <translated-port>80</translated-port>
+                  </destination-translation>
+                </entry>
+              </rules>
+            </nat>
+          </rulebase>
+          <zone>
+            <entry name="trust">
+              <network>
+                <member>ethernet1/1</member>
+              </network>
+            </entry>
+            <entry name="untrust">
+              <network>
+                <member>ethernet1/0</member>
+              </network>
+            </entry>
+            <entry name="dmz">
+              <network>
+                <member>ethernet1/2</member>
+              </network>
+            </entry>
+            <entry name="guest">
+              <network>
+                <member>ethernet1/3</member>
+              </network>
+            </entry>
+            <entry name="mgmt">
+              <network>
+                <member>ethernet1/4</member>
+              </network>
+            </entry>
+          </zone>
+        </entry>
+      </vsys>
+      <network>
+        <interface>
+          <ethernet>
+            <entry name="ethernet1/0">
+              <layer3>
+                <ip>
+                  <entry name="198.51.100.1/24"/>
+                </ip>
+                <zone>
+                  <member>untrust</member>
+                </zone>
+              </layer3>
+            </entry>
+            <entry name="ethernet1/1">
+              <layer3>
+                <ip>
+                  <entry name="10.10.0.1/16"/>
+                </ip>
+                <zone>
+                  <member>trust</member>
+                </zone>
+              </layer3>
+            </entry>
+            <entry name="ethernet1/2">
+              <layer3>
+                <ip>
+                  <entry name="10.10.100.1/24"/>
+                </ip>
+                <zone>
+                  <member>dmz</member>
+                </zone>
+              </layer3>
+            </entry>
+            <entry name="ethernet1/3">
+              <layer3>
+                <ip>
+                  <entry name="10.10.200.1/24"/>
+                </ip>
+                <zone>
+                  <member>guest</member>
+                </zone>
+              </layer3>
+            </entry>
+            <entry name="ethernet1/4">
+              <layer3>
+                <ip>
+                  <entry name="10.10.250.1/24"/>
+                </ip>
+                <zone>
+                  <member>mgmt</member>
+                </zone>
+              </layer3>
+            </entry>
+          </ethernet>
+        </interface>
+      </network>
+    </entry>
+  </devices>
+</config>

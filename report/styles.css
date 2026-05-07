@@ -1,0 +1,67 @@
+/* Report CSS - WeasyPrint compatible (table/grid-based, no flexbox) */
+
+@page {
+    size: letter;
+    margin: 2cm;
+    @bottom-center {
+        content: "Page " counter(page) " of " counter(pages);
+        font-size: 8pt;
+        color: #6b7280;
+    }
+}
+
+body {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 10pt;
+    line-height: 1.4;
+    color: #1f2937;
+}
+
+h1 {
+    font-size: 18pt;
+    border-bottom: 2px solid #333;
+    padding-bottom: 4pt;
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 14pt;
+    border-bottom: 1px solid #999;
+    padding-bottom: 2pt;
+    margin-top: 16pt;
+    page-break-before: always;
+}
+
+h2:first-of-type {
+    page-break-before: avoid;
+}
+
+h3 {
+    font-size: 12pt;
+    margin-top: 12pt;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 8pt 0;
+    font-size: 9pt;
+}
+
+th {
+    background: #f3f4f6;
+    border: 1px solid #d1d5db;
+    padding: 4pt 6pt;
+    text-align: left;
+    font-weight: bold;
+}
+
+td {
+    border: 1px solid #d1d5db;
+    padding: 4pt 6pt;
+    vertical-align: top;
+}
+
+tr:nth-child(even) {
+    background: #f9fafb;
+}

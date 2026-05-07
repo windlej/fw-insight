@@ -1,0 +1,11 @@
+services:
+  app:
+    build: .
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./data:/app/data
+    environment:
+      - STORAGE_PATH=/app/data/fw-insight.db
+      - MAX_RULES=5000
+    restart: unless-stopped
