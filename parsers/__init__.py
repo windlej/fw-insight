@@ -13,6 +13,9 @@ from parsers.base import (
 from parsers.paloalto import PaloAltoParser
 register_parser(PaloAltoParser)
 
+from parsers.fortinet import FortinetParser
+register_parser(FortinetParser)
+
 __all__ = [
     "VendorParser",
     "VendorAST",
