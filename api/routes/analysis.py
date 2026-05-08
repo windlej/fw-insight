@@ -2,7 +2,7 @@
 
 from fastapi import APIRouter, HTTPException
 
-from api.storage import get_session, get_findings
+from api.storage import get_findings, get_session
 
 router = APIRouter()
 

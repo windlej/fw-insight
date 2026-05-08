@@ -1,7 +1,7 @@
 """Diff routes - POST /api/v1/diff."""
 
-from pydantic import BaseModel
 from fastapi import APIRouter, HTTPException
+from pydantic import BaseModel
 
 from api.storage import get_session
 from core.diff import diff_sessions

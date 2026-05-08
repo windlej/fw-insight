@@ -1,16 +1,14 @@
 """Tests for core.analysis engine and registry."""
 
-import pytest
 
-from core.models import (
-    Session,
-    SecurityPolicy,
-    RuleEndpoint,
-    ServiceRef,
-    Finding,
-)
 from core.analysis.engine import AnalysisEngine
-from core.analysis.registry import check, get_checks, run_checks, _CHECK_REGISTRY
+from core.analysis.registry import _CHECK_REGISTRY, check, get_checks, run_checks
+from core.models import (
+    RuleEndpoint,
+    SecurityPolicy,
+    ServiceRef,
+    Session,
+)
 
 
 class TestRegistry:

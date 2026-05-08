@@ -108,5 +108,9 @@ def auto_detect_vendor(raw_config: str | bytes) -> str | None:
         return "paloalto"
     if "config system" in content and "end" in content:
         return "fortinet"
+    if "ASA Version" in content:
+        return "cisco_asa"
+    if "object network" in content and "access-list" in content:
+        return "cisco_asa"
 
     return None

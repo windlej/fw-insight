@@ -1,7 +1,7 @@
 """FW-001: Any-Any Allow Rule detection."""
 
-from core.models import Finding, SecurityPolicy, Session
 from core.analysis.registry import check
+from core.models import Finding, SecurityPolicy, Session
 
 
 def _is_any_any(policy: SecurityPolicy) -> bool:

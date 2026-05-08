@@ -1,15 +1,15 @@
 #!/usr/bin/env python3
 """Seed fixture data into the database for development."""
 
-import sys
 import os
+import sys
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 
-from parsers.paloalto.parser import PaloAltoParser
-from core.normalizer import normalize
-from core.analysis.engine import AnalysisEngine
 from api.storage import init_db, save_session
+from core.analysis.engine import AnalysisEngine
+from core.normalizer import normalize
+from parsers.paloalto.parser import PaloAltoParser
 
 
 def main():

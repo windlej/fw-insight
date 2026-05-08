@@ -1,11 +1,10 @@
 """Tests for Fortinet FortiGate parser."""
 
-import pytest
 from pathlib import Path
 
-from parsers.fortinet.parser import FortinetParser
-from parsers.fortinet.normalizer import normalize_fortinet
 from core.models import Session
+from parsers.fortinet.normalizer import normalize_fortinet
+from parsers.fortinet.parser import FortinetParser
 
 FIXTURES_DIR = Path(__file__).parent / "fixtures"
 

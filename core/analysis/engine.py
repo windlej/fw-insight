@@ -2,9 +2,8 @@
 
 import logging
 
-from core.models import AnalysisResult, Session
 from core.analysis.registry import run_checks
-from core.constants import SEVERITY_WEIGHTS
+from core.models import AnalysisResult, Session
 
 logger = logging.getLogger(__name__)
 

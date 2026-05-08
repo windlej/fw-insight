@@ -8,9 +8,10 @@ Handles both single-vsys and multi-vsys configurations.
 
 import logging
 from typing import Any
+
 from lxml import etree
 
-from parsers.base import VendorParser, VendorAST, ParseError
+from parsers.base import ParseError, VendorAST, VendorParser
 from parsers.paloalto.normalizer import normalize_paloalto
 
 logger = logging.getLogger(__name__)

@@ -2,12 +2,12 @@
 
 import logging
 
-from fastapi import APIRouter, UploadFile, File, Form, HTTPException
+from fastapi import APIRouter, File, Form, HTTPException, UploadFile
 
-from parsers import get_parser, auto_detect_vendor
-from core.normalizer import normalize
-from core.analysis.engine import AnalysisEngine
 from api.storage import save_session
+from core.analysis.engine import AnalysisEngine
+from core.normalizer import normalize
+from parsers import auto_detect_vendor, get_parser
 
 logger = logging.getLogger(__name__)
 

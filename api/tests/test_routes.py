@@ -1,7 +1,7 @@
 """Tests for API routes."""
 
 import sys
-from unittest.mock import MagicMock, patch
+from unittest.mock import MagicMock
 
 # Mock weasyprint for environments without native Pango/GObject libs
 if "weasyprint" not in sys.modules:
@@ -13,7 +13,10 @@ import pytest
 from fastapi.testclient import TestClient
 
 from api.main import app
-from api.storage import init_db, save_session, get_session, list_sessions, delete_session, get_findings
+from api.storage import (
+    init_db,
+    save_session,
+)
 
 
 @pytest.fixture

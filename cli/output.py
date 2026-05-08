@@ -20,7 +20,7 @@ def severity_badge(severity: str) -> str:
 def print_findings_summary(result, session):
     """Print analysis results to the console."""
     click.echo(f"\n{'=' * 60}")
-    click.echo(f"fw-insight Analysis Report")
+    click.echo("fw-insight Analysis Report")
     click.echo(f"{'=' * 60}")
     click.echo(f"Vendor:        {session.vendor}")
     click.echo(f"Hostname:      {session.hostname or 'N/A'}")

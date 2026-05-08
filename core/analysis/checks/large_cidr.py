@@ -1,8 +1,8 @@
 """FW-003: Large CIDR Allowance detection."""
 
-from core.models import Finding, Session
 from core.analysis.registry import check
 from core.ip_utils import address_count
+from core.models import Finding, Session
 
 
 @check(

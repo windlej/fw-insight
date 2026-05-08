@@ -1,11 +1,12 @@
 """Tests for Palo Alto parser."""
 
-import pytest
 from pathlib import Path
 
-from parsers.paloalto.parser import PaloAltoParser
-from parsers.paloalto.normalizer import normalize_paloalto
+import pytest
+
 from core.models import Session
+from parsers.paloalto.normalizer import normalize_paloalto
+from parsers.paloalto.parser import PaloAltoParser
 
 FIXTURES_DIR = Path(__file__).parent / "fixtures"
 

@@ -2,14 +2,16 @@
 
 import functools
 import logging
-from typing import Any, Callable
+from collections.abc import Callable
+from typing import Any
 
-from core.models import Finding, Session
 from core.analysis.findings import Category, Severity
+from core.models import Finding, Session
 
 logger = logging.getLogger(__name__)
 
 _CHECK_REGISTRY: list[dict[str, Any]] = []
+_registry_loaded = False
 
 
 def check(
@@ -54,6 +56,10 @@ def check(
 
 def get_checks(vendor: str | None = None) -> list[dict[str, Any]]:
     """Get registered checks, optionally filtered by vendor."""
+    global _registry_loaded
+    if not _registry_loaded:
+        from core.analysis import checks as _  # noqa: F401
+        _registry_loaded = True
     if vendor is None:
         return list(_CHECK_REGISTRY)
     return [

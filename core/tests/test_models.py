@@ -1,22 +1,21 @@
 """Tests for core.models."""
 
-import pytest
 
 from core.models import (
-    Session,
-    SecurityPolicy,
-    NATRule,
-    Interface,
-    Zone,
     AddressObject,
+    AnalysisResult,
+    Category,
+    ConfigDiff,
+    Finding,
+    Interface,
+    NATRule,
+    RuleEndpoint,
+    SecurityPolicy,
     ServiceObject,
     ServiceRef,
-    RuleEndpoint,
-    Finding,
-    AnalysisResult,
-    ConfigDiff,
+    Session,
     Severity,
-    Category,
+    Zone,
 )
 
 

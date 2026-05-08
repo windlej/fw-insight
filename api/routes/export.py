@@ -3,7 +3,7 @@
 from fastapi import APIRouter, HTTPException, Query
 from fastapi.responses import JSONResponse
 
-from api.storage import get_session, get_findings, get_raw_config
+from api.storage import get_findings, get_raw_config, get_session
 from report.generator import generate_pdf
 
 router = APIRouter()

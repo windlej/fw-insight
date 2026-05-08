@@ -1,16 +1,15 @@
 """Tests for core.ip_utils."""
 
 import ipaddress
-import pytest
 
 from core.ip_utils import (
-    parse_address,
-    contains,
-    overlaps,
     address_count,
+    contains,
     is_private,
     is_public,
     normalize_cidr,
+    overlaps,
+    parse_address,
 )
 
 

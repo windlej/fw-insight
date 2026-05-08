@@ -1,7 +1,7 @@
 """FW-006: Redundant/Duplicate Rule detection."""
 
-from core.models import Finding, Session
 from core.analysis.registry import check
+from core.models import Finding, Session
 
 
 def _services_equal(a, b) -> bool:

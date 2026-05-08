@@ -3,9 +3,9 @@
 import click
 
 from cli.commands.analyze import analyze
-from cli.commands.report import report
 from cli.commands.diff import diff
 from cli.commands.export import export_cmd
+from cli.commands.report import report
 from cli.commands.serve import serve
 
 

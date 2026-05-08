@@ -13,7 +13,7 @@ docker compose up
 
 ## Features
 
-- **Multi-vendor support**: Palo Alto (XML), FortiGate (CLI), UniFi (controller + gateway)
+- **Multi-vendor support**: Palo Alto (XML), FortiGate (CLI), Cisco ASA/Firepower (CLI), UniFi (controller + gateway)
 - **Security analysis**: Detects any-any rules, internet exposure, large CIDRs, missing logging, shadowed/redundant rules
 - **Interactive web UI**: Dashboard, policy tables, drill-down views, side-by-side comparison
 - **CLI mode**: `fw-insight analyze`, `fw-insight report`, `fw-insight diff`, `fw-insight export`
@@ -71,8 +71,8 @@ User → Web UI / CLI
   │            │
 Parser      Analyzer
 (PA, FG,   (checks:
- UniFi)     any-any,
-            exposure,
+ ASA,       any-any,
+ UniFi)     exposure,
             ...)
 ```
 
@@ -81,7 +81,8 @@ Parser      Analyzer
 | Vendor | Format | Status |
 |--------|--------|--------|
 | Palo Alto | XML export | Implemented |
-| FortiGate | CLI config | Planned |
+| FortiGate | CLI config | Implemented |
+| Cisco ASA / Firepower | CLI config | Implemented |
 | UniFi Controller | .unf backup | Planned |
 | UniFi Gateway | Vyatta CLI | Planned |
 

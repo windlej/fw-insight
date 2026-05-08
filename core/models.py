@@ -5,7 +5,7 @@ with a warning logged rather than causing validation failure.
 """
 
 import logging
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from enum import Enum
 from typing import Any
 from uuid import uuid4
@@ -142,7 +142,7 @@ class Session(PermissiveModel):
     vendor: str
     vendor_version: str | None = None
     hostname: str | None = None
-    parsed_at: str = Field(default_factory=lambda: datetime.now(timezone.utc).isoformat())
+    parsed_at: str = Field(default_factory=lambda: datetime.now(UTC).isoformat())
     source_filename: str | None = None
     source_checksum: str | None = None
     metadata: dict[str, Any] = Field(default_factory=dict)

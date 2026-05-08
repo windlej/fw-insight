@@ -2,9 +2,9 @@
 
 import click
 
-from parsers import get_parser
-from core.normalizer import normalize
 from core.analysis.engine import AnalysisEngine
+from core.normalizer import normalize
+from parsers import get_parser
 from report.generator import generate_pdf
 
 

@@ -12,14 +12,14 @@ Maps FortiGate-specific fields to the canonical data model:
 from typing import Any
 
 from core.models import (
-    SecurityPolicy,
-    NATRule,
-    Interface,
-    Zone,
     AddressObject,
-    ServiceObject,
+    Interface,
+    NATRule,
     RuleEndpoint,
+    SecurityPolicy,
+    ServiceObject,
     ServiceRef,
+    Zone,
 )
 
 

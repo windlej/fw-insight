@@ -1,8 +1,8 @@
 """FW-005: Potentially Shadowed Rule detection."""
 
-from core.models import Finding, Session
 from core.analysis.registry import check
 from core.ip_utils import contains
+from core.models import Finding, Session
 
 
 def _service_contains(earlier_services, later_services) -> bool:

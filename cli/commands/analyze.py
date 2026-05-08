@@ -1,12 +1,13 @@
 """Analyze command."""
 
 import json
+
 import click
 
-from parsers import get_parser
-from core.normalizer import normalize
-from core.analysis.engine import AnalysisEngine
 from cli.output import print_findings_summary
+from core.analysis.engine import AnalysisEngine
+from core.normalizer import normalize
+from parsers import get_parser
 
 
 @click.command()

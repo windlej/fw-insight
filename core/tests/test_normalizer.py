@@ -2,8 +2,8 @@
 
 import pytest
 
-from core.normalizer import normalize
 from core.models import Session
+from core.normalizer import normalize
 
 
 class TestNormalize:

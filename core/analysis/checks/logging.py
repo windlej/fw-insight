@@ -1,7 +1,7 @@
 """FW-004: Logging Disabled on Allow Rules."""
 
-from core.models import Finding, Session
 from core.analysis.registry import check
+from core.models import Finding, Session
 
 
 @check(

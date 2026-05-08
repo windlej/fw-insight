@@ -1,15 +1,13 @@
 """Tests for core.diff."""
 
-import pytest
 
-from core.diff import diff_sessions, _compare_rules
+from core.diff import _compare_rules, diff_sessions
 from core.models import (
-    Session,
-    SecurityPolicy,
-    RuleEndpoint,
-    ServiceRef,
     AddressObject,
-    FieldChange,
+    RuleEndpoint,
+    SecurityPolicy,
+    ServiceRef,
+    Session,
 )
 
 

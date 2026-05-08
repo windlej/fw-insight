@@ -1,8 +1,8 @@
 """FW-002: Internet-Exposed Service detection."""
 
-from core.models import Finding, Session
 from core.analysis.registry import check
 from core.ip_utils import is_private
+from core.models import Finding, Session
 
 
 @check(

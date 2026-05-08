@@ -74,7 +74,7 @@ def _build_report_html(session: dict, findings: list[dict]) -> str:
 
     html_parts.extend([
         '<h1>Firewall Configuration Analysis Report</h1>',
-        '<div class="score {0}">{1}/100</div>'.format(score_class, health_score),
+        f'<div class="score {score_class}">{health_score}/100</div>',
         '<p style="text-align:center;color:#6b7280;">Policy Health Score</p>',
         '<h2>Firewall Information</h2>',
         '<table>',
@@ -101,9 +101,7 @@ def _build_report_html(session: dict, findings: list[dict]) -> str:
         if count > 0:
             color = severity_colors.get(sev, "#6b7280")
             html_parts.append(
-                '<tr><td><span class="badge" style="background:{0}">{1}</span></td><td>{2}</td></tr>'.format(
-                    color, sev.upper(), count
-                )
+                f'<tr><td><span class="badge" style="background:{color}">{sev.upper()}</span></td><td>{count}</td></tr>'
             )
 
     html_parts.append('</table>')
@@ -113,7 +111,7 @@ def _build_report_html(session: dict, findings: list[dict]) -> str:
         for f in findings:
             color = severity_colors.get(f.get("severity", "info"), "#6b7280")
             html_parts.extend([
-                '<div class="finding" style="border-left-color:{0}">'.format(color),
+                f'<div class="finding" style="border-left-color:{color}">',
                 '<strong>{0} - {1}</strong><br>'.format(f.get("check_id", ""), f.get("title", "")),
                 '<span class="badge" style="background:{0}">{1}</span><br><br>'.format(
                     color, f.get("severity", "info").upper()
@@ -149,11 +147,11 @@ def _build_report_html(session: dict, findings: list[dict]) -> str:
                 '<tr>',
                 '<td>{}</td>'.format(p.get("position", "")),
                 '<td>{}</td>'.format(p.get("name") or p.get("id", "")),
-                '<td style="font-size:8pt">{}</td>'.format(src[:50]),
-                '<td style="font-size:8pt">{}</td>'.format(dst[:50]),
-                '<td>{}</td>'.format(svcs),
+                f'<td style="font-size:8pt">{src[:50]}</td>',
+                f'<td style="font-size:8pt">{dst[:50]}</td>',
+                f'<td>{svcs}</td>',
                 '<td style="color:{0};font-weight:bold">{1}</td>'.format(action_color, p.get("action", "")),
-                '<td>{}</td>'.format(log),
+                f'<td>{log}</td>',
                 '</tr>',
             ])
         html_parts.append('</table>')

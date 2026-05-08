@@ -1,7 +1,6 @@
 """FastAPI application entry point."""
 
 import logging
-import os
 from contextlib import asynccontextmanager
 from pathlib import Path
 
@@ -51,7 +50,7 @@ def list_parsers():
     return {"parsers": list_parsers()}
 
 
-from api.routes import upload, sessions, analysis, diff, export
+from api.routes import analysis, diff, export, sessions, upload
 
 app.include_router(upload.router, prefix="/api/v1", tags=["upload"])
 app.include_router(sessions.router, prefix="/api/v1", tags=["sessions"])

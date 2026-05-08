@@ -1,10 +1,11 @@
 """Export command."""
 
 import json
+
 import click
 
-from parsers import get_parser
 from core.normalizer import normalize
+from parsers import get_parser
 
 
 @click.command("export")

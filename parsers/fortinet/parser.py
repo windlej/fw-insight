@@ -20,11 +20,11 @@ The FortiGate CLI uses a block-based structure:
 This parser uses a stack-based approach to track nested blocks.
 """
 
-import re
 import logging
+import re
 from typing import Any
 
-from parsers.base import VendorParser, VendorAST, ParseError
+from parsers.base import VendorAST, VendorParser
 from parsers.fortinet.normalizer import normalize_fortinet
 
 logger = logging.getLogger(__name__)

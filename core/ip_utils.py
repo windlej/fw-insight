@@ -1,7 +1,6 @@
 """IP address and CIDR utility functions."""
 
 import ipaddress
-from typing import Any
 
 
 def parse_address(addr: str) -> ipaddress.IPv4Network | ipaddress.IPv4Address | None:

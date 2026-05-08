@@ -1,20 +1,25 @@
 """Parser package - auto-registers all vendor parsers."""
 
 from parsers.base import (
-    VendorParser,
-    VendorAST,
     ParseError,
-    register_parser,
+    VendorAST,
+    VendorParser,
+    auto_detect_vendor,
     get_parser,
     list_parsers,
-    auto_detect_vendor,
+    register_parser,
 )
-
 from parsers.paloalto import PaloAltoParser
+
 register_parser(PaloAltoParser)
 
 from parsers.fortinet import FortinetParser
+
 register_parser(FortinetParser)
+
+from parsers.cisco_asa import CiscoASAParser
+
+register_parser(CiscoASAParser)
 
 __all__ = [
     "VendorParser",
